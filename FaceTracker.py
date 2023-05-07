@@ -13,41 +13,45 @@ class ScanLog:
   def __init__(self):
     self.log = []
 
-  def save_log(self, count, timestamp):
-			print("Saving")
-			self.log.append(ScanResult(count, timestamp))
+  def save_log(self, scan_result):
+    print("Saving")
+    self.log.append(scan_result)      
 
 class FaceTracker:
-    def __init__(self, video_capture, cascade_classifier):
+    def __init__(self, video_capture, cascade_classifier, log):
         self.video_capture = video_capture
         self.cascade_classifier = cascade_classifier
+        self.log = log
         
     def scan(self, showGui = False):
         print("Scanning")
-        ret, image = self.video_capture.read()
+        while True:
+          ret, image = self.video_capture.read()
 
-        if not ret:
-          return 0
+          if not ret:
+            break
 
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+          gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-        faces = self.cascade_classifier.detectMultiScale(
-            gray,
-            scaleFactor = 1.2,
-            minNeighbors = 10,
-            minSize = (30,30)
-            )
+          faces = self.cascade_classifier.detectMultiScale(
+							gray,
+							scaleFactor = 1.2,
+							minNeighbors = 10,
+							minSize = (30,30)
+							)
 
-        if showGui:
+          if showGui:
             for (x,y,w,h) in faces:
-                cv2.rectangle(image, (x,y), (x+h, y+h), (0, 255, 0), 2)
+              cv2.rectangle(image, (x,y), (x+h, y+h), (0, 255, 0), 2)
 
-            cv2.imshow("Faces found", image)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-              return 0
+              cv2.imshow("Faces found", image)
+              if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
+          self.log.save_log(ScanResult(len(faces), datetime.now()))
+          print(str(len(faces)), str(datetime.now()))
         self.video_capture.release()
-        return ScanResult(len(faces), datetime.now())
+        cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     print(len(sys.argv))
@@ -58,14 +62,12 @@ if __name__ == "__main__":
 
     face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
     video_capture = cv2.VideoCapture(video_mode)
-    face_tracker = FaceTracker(video_capture, face_cascade)
     log = ScanLog()
+    face_tracker = FaceTracker(video_capture, face_cascade, log)
 
     try:
-        while True:
-          faces = face_tracker.scan(video_mode)
-          log.save_log(len(faces), datetime.now())
+      face_tracker.scan(True)
     except KeyboardInterrupt:
         pass
-    cv2.destroyAllWindows()
+    
  
