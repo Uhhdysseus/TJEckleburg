@@ -2,7 +2,6 @@
 import sys
 import cv2
 from datetime import datetime
-from first import first
 
 
 class faceoff:
@@ -12,17 +11,12 @@ class faceoff:
 
 
 faceoffCollection = []
-color = ['green', 'red', 'yellow']
-flash = [1, 2, 3]
+
 
 def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_frontalface_default.xml", descending=None):
 
     face_cascade = cv2.CascadeClassifier(cascasdepath)
-
     video_capture = cv2.VideoCapture(video_mode)
-    num_faces = 0
-
-
     while True:
         ret, image = video_capture.read()
 
@@ -34,20 +28,10 @@ def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_fr
         faces = face_cascade.detectMultiScale(
             gray,
             scaleFactor = 1.2,
-            minNeighbors = 5,
+            minNeighbors = 10,
             minSize = (30,30)
-
             )
 
-        print("The number of faces found = ", len(faces))
-
-
-
-        #except:
-        #    pass
-        #flashTime = filter(lambda c: c.facecount == 0, faceoffCollection)
-
-        num_faces = len(faces)
         if not nogui:
             for (x,y,w,h) in faces:
                 cv2.rectangle(image, (x,y), (x+h, y+h), (0, 255, 0), 2)
@@ -57,15 +41,11 @@ def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_fr
                 break
         face = faceoff(len(faces))
         faceoffCollection.append(face)
-        try:
-            flashTime = first(x for x in sorted(faceoffCollection, key= lambda x: x.time, reverse=True) if x.facecount == 0)
-            #flashTime = (x for x in faceoffCollection.sort(key=lambda x: x.time, reverse=True) if x.facecount == 0)
-            print('The last time there was a face was', str(flashTime.time))
-        except:
-            pass
+        print(str(face.facecount), str(face.time))
     video_capture.release()
     cv2.destroyAllWindows()
-    return num_faces
+
+    return face
 
 
 if __name__ == "__main__":
@@ -76,6 +56,6 @@ if __name__ == "__main__":
     print(len(sys.argv))
     try:
         while True:
-            webcam_face_detect(video_mode)
+          webcam_face_detect(video_mode)
     except KeyboardInterrupt:
         pass
