@@ -1,8 +1,11 @@
 
 import sys
 import cv2
-from datetime import datetime
-
+from datetime import *
+from time import sleep
+from threading import Thread
+from statistics import mean
+import serial
 
 class faceoff:
     def __init__(self, facecount):
@@ -41,12 +44,44 @@ def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_fr
                 break
         face = faceoff(len(faces))
         faceoffCollection.append(face)
-        print(str(face.facecount), str(face.time))
+       # print(str(face.facecount), str(face.time))
+        sleep(1)
     video_capture.release()
     cv2.destroyAllWindows()
 
     return face
 
+def readArray(array):
+    for x in array:
+        print(str(x))
+
+def writeOut():
+    print("Hello WOrld")
+
+
+def averageFace(list):
+    avg = []
+    filtered = [x for x in list if datetime.now() + timedelta(seconds=-20) <= x.time <= datetime.now()]
+    for f in filtered:
+        avg.append(f.facecount)
+    return mean(avg)
+
+
+def flashbox(fcount):
+    lightRoutine = 0
+    if fcount >= 1:
+        lightRoutine = 1
+    if fcount >= 2:
+        lightRoutine = 2
+    if fcount >= 3:
+        lightRoutine = 3
+    return lightRoutine
+
+
+def walkietalkie(command):
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+    ser.reset_input_buffer()
+    ser.write(command)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -55,7 +90,17 @@ if __name__ == "__main__":
         video_mode = sys.argv[1]
     print(len(sys.argv))
     try:
+        Thread(target=webcam_face_detect,args=[video_mode], daemon=True, name='Main').start()
+        sleep(30)
         while True:
-          webcam_face_detect(video_mode)
+            filtered = averageFace(faceoffCollection)
+            lightining = flashbox(filtered)
+            print(lightining)
+            #walkietalkie(lightining)
+            """print(len(filtered), 'at ',print(datetime.now()))
+            for y in filtered:
+                print(str(y.facecount), str(y.time))"""
+            print("loopDaddy")
+            sleep(10)
     except KeyboardInterrupt:
         pass
