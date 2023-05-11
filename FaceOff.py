@@ -9,11 +9,22 @@ import serial
 
 class faceoff:
     def __init__(self, facecount):
+        self.id = 0
         self.facecount = facecount
         self.time = datetime.now()
 
+class ScanLog:
+  def __init__(self):
+    self.log = []
+
+  def save_log(self, scan_result):
+    print("Saving")
+    self.log.append(scan_result)
+
 
 faceoffCollection = []
+
+
 
 
 def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_frontalface_default.xml", descending=None):
@@ -70,11 +81,11 @@ def averageFace(list):
 def flashbox(fcount):
     lightRoutine = 0
     if fcount >= 1:
-        lightRoutine = 1
+        lightRoutine = 0
     if fcount >= 2:
-        lightRoutine = 2
+        lightRoutine = 1
     if fcount >= 3:
-        lightRoutine = 3
+        lightRoutine = 2
     return lightRoutine
 
 
@@ -94,9 +105,12 @@ if __name__ == "__main__":
         sleep(30)
         while True:
             filtered = averageFace(faceoffCollection)
-            lightining = flashbox(filtered)
+            try:
+                lightining = flashbox(filtered)
+            except:
+                lightining = 0
             print(lightining)
-            #walkietalkie(lightining)
+            walkietalkie(lightining)
             """print(len(filtered), 'at ',print(datetime.now()))
             for y in filtered:
                 print(str(y.facecount), str(y.time))"""
