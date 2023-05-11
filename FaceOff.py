@@ -88,6 +88,11 @@ def flashbox(fcount):
         lightRoutine = 2
     return lightRoutine
 
+def readPI():
+    ser.write(b"Hello from Raspberry Pi!\n")
+    line = ser.readline().decode('utf-8').rstrip()
+    print(line)
+    time.sleep(1)
 
 def walkietalkie(command):
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
@@ -95,6 +100,7 @@ def walkietalkie(command):
     ser.write(command)
 
 if __name__ == "__main__":
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     if len(sys.argv) < 2:
         video_mode = 0
     else:
