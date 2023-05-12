@@ -98,6 +98,12 @@ def walkietalkie(command):
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.reset_input_buffer()
     ser.write(command)
+    try:
+        line = ser.readline().decode('utf-8').rstrip()
+        print(line)
+    except:
+        print("no data")
+
 
 if __name__ == "__main__":
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
@@ -116,7 +122,10 @@ if __name__ == "__main__":
             except:
                 lightining = 0
             print(lightining)
-            walkietalkie(lightining)
+            try:
+                walkietalkie(lightining)
+            except:
+                print('whoops')
             """print(len(filtered), 'at ',print(datetime.now()))
             for y in filtered:
                 print(str(y.facecount), str(y.time))"""
