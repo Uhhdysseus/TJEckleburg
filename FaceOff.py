@@ -98,8 +98,7 @@ def walkietalkie(command):
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.reset_input_buffer()
     sendCommand = command + "\n"
-    byte = str.encode(sendCommand)
-    ser.write(byte)
+    ser.write(sendCommand.encode())
     try:
         line = ser.readline().decode('utf-8').rstrip()
         print(line)
@@ -120,7 +119,7 @@ if __name__ == "__main__":
         while True:
             filtered = averageFace(faceoffCollection)
             try:
-                lightining = flashbox(filtered)
+                lightining = flashbox(2)
             except:
                 lightining = '99'
             print(lightining)
