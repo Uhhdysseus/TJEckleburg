@@ -75,7 +75,7 @@ def averageFace(list):
     filtered = [x for x in list if datetime.now() + timedelta(seconds=-20) <= x.time <= datetime.now()]
     for f in filtered:
         avg.append(f.facecount)
-    return max(avg)
+    return mean(avg)
 
 
 def flashbox(fcount):
