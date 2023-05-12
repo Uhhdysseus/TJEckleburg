@@ -122,10 +122,7 @@ if __name__ == "__main__":
             except:
                 lightining = 0
             print(lightining)
-            try:
-                walkietalkie(lightining)
-            except:
-                print('whoops')
+            walkietalkie(lightining)
             """print(len(filtered), 'at ',print(datetime.now()))
             for y in filtered:
                 print(str(y.facecount), str(y.time))"""
