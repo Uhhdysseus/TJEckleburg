@@ -121,7 +121,7 @@ if __name__ == "__main__":
             try:
                 lightining = flashbox(filtered)
             except:
-                lightining = '0'
+                lightining = '99'
             print(lightining)
             walkietalkie(lightining)
             """print(len(filtered), 'at ',print(datetime.now()))
