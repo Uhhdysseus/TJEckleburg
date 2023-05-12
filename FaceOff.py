@@ -79,7 +79,7 @@ def averageFace(list):
 
 
 def flashbox(fcount):
-    lightRoutine = 0
+    lightRoutine = '0'
     if fcount >= 1:
         lightRoutine = '0'
     if fcount >= 2:
