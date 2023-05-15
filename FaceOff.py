@@ -97,8 +97,8 @@ def readPI():
 def walkietalkie(command):
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.reset_input_buffer()
-    #sendCommand = command
-    ser.write(command.encode())
+    sendCommand = (command + '/n').encode()
+    ser.write(sendCommand)
     try:
         line = ser.readline().decode('utf-8').rstrip()
         print(line)
@@ -123,7 +123,7 @@ if __name__ == "__main__":
             except:
                 lightining = '99'
             print(lightining)
-            walkietalkie('3')
+            walkietalkie(3)
             """print(len(filtered), 'at ',print(datetime.now()))
             for y in filtered:
                 print(str(y.facecount), str(y.time))"""
