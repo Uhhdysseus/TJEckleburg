@@ -119,7 +119,7 @@ if __name__ == "__main__":
         while True:
             filtered = averageFace(faceoffCollection)
             try:
-                lightining = flashbox(2)
+                lightining = flashbox(filtered)
             except:
                 lightining = '99'
             print(lightining)
