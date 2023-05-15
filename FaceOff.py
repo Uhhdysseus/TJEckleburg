@@ -97,7 +97,7 @@ def readPI():
 def walkietalkie(command):
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.reset_input_buffer()
-    sendCommand = (command + '/n').encode()
+    sendCommand = (command + "\n").encode()
     ser.write(sendCommand)
     try:
         line = ser.readline().decode('utf-8').rstrip()
