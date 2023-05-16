@@ -66,44 +66,30 @@ def readArray(array):
     for x in array:
         print(str(x))
 
+def writeOut():
+    print("Hello WOrld")
+
+
 def averageFace(list):
     avg = []
     filtered = [x for x in list if datetime.now() + timedelta(seconds=-20) <= x.time <= datetime.now()]
     for f in filtered:
         avg.append(f.facecount)
-    return mean(avg)
+    return max(avg)
 
 
 def flashbox(fcount):
-    lightRoutine = '0'
+    lightRoutine = 0
     if fcount >= 1:
-        lightRoutine = '0'
+        lightRoutine = '0
     if fcount >= 2:
-        lightRoutine = '1'
+        lightRoutine = 1
     if fcount >= 3:
         lightRoutine = '2'
     return lightRoutine
 
-def readPI():
-    ser.write(b"Hello from Raspberry Pi!\n")
-    line = ser.readline().decode('utf-8').rstrip()
-    print(line)
-    time.sleep(1)
-
-def walkietalkie(command):
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
-    ser.reset_input_buffer()
-    sendCommand = (command + "\n").encode()
-    ser.write(sendCommand)
-    try:
-        line = ser.readline().decode('utf-8').rstrip()
-        print(line)
-    except:
-        print("no data")
-
 
 if __name__ == "__main__":
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     if len(sys.argv) < 2:
         video_mode = 0
     else:
@@ -117,12 +103,8 @@ if __name__ == "__main__":
             try:
                 lightining = flashbox(filtered)
             except:
-                lightining = '99'
+                lightining = 0
             print(lightining)
-            walkietalkie(lightining)
-            """print(len(filtered), 'at ',print(datetime.now()))
-            for y in filtered:
-                print(str(y.facecount), str(y.time))"""
             print("loopDaddy")
             sleep(10)
     except KeyboardInterrupt:
