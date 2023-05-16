@@ -101,9 +101,9 @@ if __name__ == "__main__":
     log = ScanLog()
     face_tracker = FaceTracker(video_capture, face_cascade, log)
     try:
+        Thread(target=face_tracker.scan, args=[True], daemon=True, name='Main').start()
+        sleep(10)
         while True:
-            Thread(target=face_tracker.scan, args=[True], daemon=True, name='Main').start()
-            sleep(10)
             filtered = averageFace(log.log)
             try:
                 lights = flashbox(filtered)
