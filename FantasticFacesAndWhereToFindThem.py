@@ -42,7 +42,7 @@ class FaceTracker:
 
             faces = self.cascade_classifier.detectMultiScale(
                 gray,
-                scaleFactor=1.2,
+                scaleFactor=1.5,
                 minNeighbors=10,
                 minSize=(30, 30)
             )
