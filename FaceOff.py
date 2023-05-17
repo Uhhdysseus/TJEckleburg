@@ -5,7 +5,7 @@ from datetime import *
 from time import sleep
 from threading import Thread
 from statistics import mean
-import serial
+##import serial
 
 class faceoff:
     def __init__(self, facecount):
@@ -41,9 +41,9 @@ def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_fr
 
         faces = face_cascade.detectMultiScale(
             gray,
-            scaleFactor = 1.9,
-            minNeighbors = 20,
-            minSize = (20,20)
+            scaleFactor = 1.2,
+            minNeighbors = 5,
+            minSize = (30,30)
             )
 
         if not nogui:
@@ -103,7 +103,7 @@ def walkietalkie(command):
 
 
 if __name__ == "__main__":
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+   # ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     if len(sys.argv) < 2:
         video_mode = 0
     else:
@@ -119,7 +119,7 @@ if __name__ == "__main__":
             except:
                 lightining = '99'
             print(lightining)
-            walkietalkie(lightining)
+         #   walkietalkie(lightining)
             """print(len(filtered), 'at ',print(datetime.now()))
             for y in filtered:
                 print(str(y.facecount), str(y.time))"""
