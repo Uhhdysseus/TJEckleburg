@@ -43,7 +43,7 @@ def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_fr
             gray,
             scaleFactor = 1.9,
             minNeighbors = 20,
-            minSize = (30,30)
+            minSize = (20,20)
             )
 
         if not nogui:
