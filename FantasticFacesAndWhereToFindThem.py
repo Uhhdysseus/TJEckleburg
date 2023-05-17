@@ -42,7 +42,7 @@ class FaceTracker:
 
             faces = self.cascade_classifier.detectMultiScale(
                 gray,
-                scaleFactor=1.5,
+                scaleFactor=1.2,
                 minNeighbors=10,
                 minSize=(30, 30)
             )
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     log = ScanLog()
     face_tracker = FaceTracker(video_capture, face_cascade, log)
     try:
-        Thread(target=face_tracker.scan, args=[True], daemon=True, name='Main').start()
+        Thread(target=face_tracker.scan, args=[False], daemon=True, name='Main').start()
         sleep(10)
         while True:
             filtered = averageFace(log.log)

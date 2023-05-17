@@ -41,7 +41,7 @@ def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_fr
 
         faces = face_cascade.detectMultiScale(
             gray,
-            scaleFactor = 1.2,
+            scaleFactor = 1.5,
             minNeighbors = 10,
             minSize = (30,30)
             )
