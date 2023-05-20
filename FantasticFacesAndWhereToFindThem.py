@@ -30,7 +30,7 @@ class FaceTracker:
         self.cascade_classifier = cascade_classifier
         self.log = log
 
-    def scan(self, showGui=False):
+    def scan(self, showGui=True):
         print("Scanning")
         while True:
             ret, image = self.video_capture.read()
@@ -109,7 +109,10 @@ if __name__ == "__main__":
                 lights = flashbox(filtered)
             except:
                 lights = '99'
-            walkietalkie(lights)
+            try:
+                walkietalkie(lights)
+            except:
+                print("walkietalkie no talkie")
             print(filtered)
             print("loopDaddy")
             sleep(10)

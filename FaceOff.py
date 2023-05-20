@@ -27,7 +27,7 @@ faceoffCollection = []
 
 
 
-def webcam_face_detect(video_mode, nogui = False, cascasdepath = "haarcascade_frontalface_default.xml", descending=None):
+def webcam_face_detect(video_mode, nogui = True, cascasdepath = "haarcascade_frontalface_default.xml", descending=None):
 
     face_cascade = cv2.CascadeClassifier(cascasdepath)
     video_capture = cv2.VideoCapture(video_mode)
@@ -111,19 +111,9 @@ if __name__ == "__main__":
     print(len(sys.argv))
     try:
         Thread(target=webcam_face_detect,args=[video_mode], daemon=True, name='Main').start()
-        sleep(30)
         while True:
-            filtered = averageFace(faceoffCollection)
-            try:
-                lightining = flashbox(filtered)
-            except:
-                lightining = '99'
-            print(lightining)
-         #   walkietalkie(lightining)
-            """print(len(filtered), 'at ',print(datetime.now()))
-            for y in filtered:
-                print(str(y.facecount), str(y.time))"""
             print("loopDaddy")
             sleep(10)
+
     except KeyboardInterrupt:
         pass
