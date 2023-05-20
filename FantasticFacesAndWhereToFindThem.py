@@ -112,10 +112,7 @@ if __name__ == "__main__":
                 lights = flashbox(filtered)
             except:
                 lights = '99'
-            try:
-                walkietalkie(lights)
-            except:
-                print("break")
+            walkietalkie(lights)
             print(filtered)
             print("loopDaddy")
             sleep(10)
