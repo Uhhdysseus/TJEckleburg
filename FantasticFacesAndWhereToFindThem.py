@@ -112,7 +112,7 @@ if __name__ == "__main__":
             try:
                 walkietalkie(lights)
             except:
-                print("walkietalkie no talkie")
+                print("break")
             print(filtered)
             print("loopDaddy")
             sleep(10)
