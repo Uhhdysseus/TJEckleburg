@@ -77,8 +77,8 @@ def flashbox(fcount):
         lightRoutine = '2'
     return lightRoutine
 
-def walkietalkie(command):
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+def walkietalkie(command, ser):
+    #ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     ser.reset_input_buffer()
     sendCommand = (command + "\n").encode()
     ser.write(sendCommand)
@@ -112,7 +112,7 @@ if __name__ == "__main__":
                 lights = flashbox(filtered)
             except:
                 lights = '99'
-            walkietalkie(lights)
+            walkietalkie(lights, ser)
             print(filtered)
             print("loopDaddy")
             sleep(10)
