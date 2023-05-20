@@ -90,7 +90,10 @@ def walkietalkie(command):
 
 if __name__ == "__main__":
     print(len(sys.argv))
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+    try:
+        ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=10)
+    except:
+        ser = serial.Serial('/dev/ttyUSB1', 9600, timeout=10)
     ser.reset_input_buffer()
     if len(sys.argv) < 2:
         video_mode = 0
