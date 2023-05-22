@@ -105,7 +105,7 @@ if __name__ == "__main__":
     face_tracker = FaceTracker(video_capture, face_cascade, log)
     try:
         Thread(target=face_tracker.scan, args=[False], daemon=True, name='Main').start()
-        sleep(20)
+        sleep(10)
         while True:
             try:
                 filtered = averageFace(log.log)
