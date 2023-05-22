@@ -104,7 +104,7 @@ if __name__ == "__main__":
     log = ScanLog()
     face_tracker = FaceTracker(video_capture, face_cascade, log)
     try:
-        Thread(target=face_tracker.scan, args=[True], daemon=True, name='Main').start()
+        Thread(target=face_tracker.scan, args=[False], daemon=True, name='Main').start()
         sleep(20)
         while True:
             try:
