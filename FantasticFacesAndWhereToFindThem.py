@@ -52,7 +52,7 @@ class FaceTracker:
                 for (x, y, w, h) in faces:
                     cv2.rectangle(image, (x, y), (x + h, y + h), (0, 255, 0), 2)
 
-                    cv2.imshow("Faces found", image, flipped)
+                    cv2.imshow("Faces found", image)
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
 
