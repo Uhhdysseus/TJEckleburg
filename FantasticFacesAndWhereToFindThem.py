@@ -39,6 +39,8 @@ class FaceTracker:
                 break
 
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            flipped = cv2.flip(gray, flipcode=1)
+            
 
             faces = self.cascade_classifier.detectMultiScale(
                 gray,
