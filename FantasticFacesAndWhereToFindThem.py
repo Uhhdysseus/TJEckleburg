@@ -40,7 +40,6 @@ class FaceTracker:
 
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             flipped = cv2.flip(gray, flipcode=1)
-            
 
             faces = self.cascade_classifier.detectMultiScale(
                 gray,
@@ -53,7 +52,7 @@ class FaceTracker:
                 for (x, y, w, h) in faces:
                     cv2.rectangle(image, (x, y), (x + h, y + h), (0, 255, 0), 2)
 
-                    cv2.imshow("Faces found", image)
+                    cv2.imshow("Faces found", image, flipped)
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
 
