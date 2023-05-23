@@ -71,11 +71,11 @@ def averageFace(list):
 def flashbox(fcount):
     lightRoutine = '0'
     if fcount >= 1:
-        lightRoutine = '0'
-    if fcount >= 2:
         lightRoutine = '1'
-    if fcount >= 3:
+    if fcount >= 2:
         lightRoutine = '2'
+    if fcount >= 3:
+        lightRoutine = '3'
     return lightRoutine
 
 def walkietalkie(command, ser):
